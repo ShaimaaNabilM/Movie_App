@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // إضافة مكتبة ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart'; 
 import 'package:movie_app/feature/firstPage/presentation/pages/first_page.dart';
 
 void main() {
