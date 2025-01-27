@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:movie_app/core/common/widgets/custom_Background.dart';
+import 'package:movie_app/core/themes/app_colors.dart';
+import 'package:movie_app/core/themes/text_style.dart';
 import 'package:movie_app/core/common/widgets/custom_outline.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
 import 'package:movie_app/core/themes/text_style.dart'; 
