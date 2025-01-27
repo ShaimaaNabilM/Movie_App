@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
 import 'package:movie_app/core/themes/text_style.dart';
-import 'package:movie_app/feature/home/presentation/widgets/bottom_bar.dart';
 import 'package:movie_app/feature/home/presentation/widgets/movie.dart';
 
 class HomePage extends StatelessWidget {
