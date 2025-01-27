@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/common/custom_Background.dart';
+import 'package:movie_app/core/common/widgets/custom_Background.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
 class CategoryPage extends StatelessWidget {
   const CategoryPage({Key? key}) : super(key: key);
