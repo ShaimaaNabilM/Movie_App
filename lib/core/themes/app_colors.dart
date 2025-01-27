@@ -9,4 +9,7 @@ static const Color kPinkColor = Color(0xFFFE53BB);
   static const Color kYellowColor = Color(0xFFF2A33A);
   static const Color kWhiteColor = Color(0xFFFFFFFF);
   static const Color kGreyColor = Color(0xFF767680);
+  //LinearGradient color
+  static const Color fristGradientColor = Color(0xFFFF35B8);
+  static const Color secondGradientColor = Color(0xFF09FACA);
 }

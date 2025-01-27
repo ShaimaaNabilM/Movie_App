@@ -149,7 +149,7 @@ class FirstPage extends StatelessWidget {
                             child: Text(
                               'Sign Up',
                               textAlign: TextAlign.center,
-                              style: AppTextStyles.size14RegularWhiteColor, 
+                              style: AppTextStyles.size13RegularWhiteColor, 
                             ),
                           ),
                         ),

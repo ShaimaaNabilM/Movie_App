@@ -14,9 +14,9 @@ class AppTextStyles {
     fontWeight: FontWeight.w100,
     color: AppColors.kWhiteColor.withAlpha((255 * 0.7).toInt()), 
   );
-  static TextStyle size14RegularWhiteColor = TextStyle(
-    fontSize: 14.sp,
-    fontWeight: FontWeight.w100,
+  static TextStyle size13RegularWhiteColor = TextStyle(
+    fontSize: 13.sp,
+    fontWeight: FontWeight.w400,
     color: AppColors.kWhiteColor, 
   );
  
@@ -25,9 +25,14 @@ static TextStyle size28BoldWhiteColor = TextStyle(
     fontWeight: FontWeight.bold,
     color: AppColors.kWhiteColor, 
   );
-  static TextStyle size17BoldWhiteColor = TextStyle(
+  static TextStyle size17RegularWhiteColor = TextStyle(
     fontSize: 28.sp,
-    fontWeight: FontWeight.w100,
+    fontWeight: FontWeight.w400,
+    color: AppColors.kWhiteColor, 
+  );
+  static TextStyle size17BoldWhiteColor = TextStyle(
+    fontSize: 17.sp,
+    fontWeight: FontWeight.bold,
     color: AppColors.kWhiteColor, 
   );
   static TextStyle size13BoldWhiteColor = TextStyle(
@@ -36,7 +41,7 @@ static TextStyle size28BoldWhiteColor = TextStyle(
     color: AppColors.kWhiteColor, 
   );
   static TextStyle size20BoldWhiteColor = TextStyle(
-    fontSize: 28.sp,
+    fontSize: 20.sp,
     fontWeight: FontWeight.bold,
     color: AppColors.kWhiteColor, 
   );
