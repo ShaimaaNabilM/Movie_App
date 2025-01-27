@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:movie_app/core/common/custom_Background.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
 import 'package:movie_app/core/themes/text_style.dart';
 import 'package:movie_app/feature/home/presentation/widgets/movie.dart';
-
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,39 +20,7 @@ class HomePage extends StatelessWidget {
         height: screenHeight,
         child: Stack(
           children: [
-            Positioned(
-              top: screenHeight * 0.1,
-              left: -88,
-              child: Container(
-                height: 166,
-                width: 166,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kGreenColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            Positioned(
-              top: screenHeight * 0.3,
-              right: -100,
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kPinkColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            
+            const Background(),
             SingleChildScrollView(
               child: Center(
                 child: SafeArea(
@@ -93,7 +61,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),

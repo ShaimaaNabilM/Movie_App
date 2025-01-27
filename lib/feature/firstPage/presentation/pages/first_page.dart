@@ -1,59 +1,28 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:movie_app/core/common/widgets/custom_outline.dart';
+import 'package:movie_app/core/common/custom_Background.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
-import 'package:movie_app/core/themes/text_style.dart'; 
+import 'package:movie_app/core/themes/text_style.dart';
+import 'package:movie_app/core/common/widgets/custom_outline.dart';
 import 'package:movie_app/feature/auth/presentation/register_view/register_screen.dart';
+
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenHight = MediaQuery.of(context).size.height; // ليكون متجاوبًا مع كل الأجهزة
+    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: AppColors.kBlackColor,
       extendBody: true,
       body: SizedBox(
         width: screenWidth,
-        height: screenHight,
+        height: screenHeight,
         child: Stack(
           children: [
-            // الدوائر الملونة
-            Positioned(
-              top: screenHight * 0.1,
-              left: -88,
-              child: Container(
-                height: 166,
-                width: 166,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kPinkColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            Positioned(
-              top: screenHight * 0.3,
-              right: -100,
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kGreenColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            // محتوى الصفحة
+            const Background(), 
             Center(
               child: SafeArea(
                 child: Column(
@@ -61,7 +30,7 @@ class FirstPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: screenHight * 0.07,
+                      height: screenHeight * 0.07,
                     ),
                     CustomOutline(
                       strokeWidth: 4,
@@ -92,23 +61,23 @@ class FirstPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: screenHight * 0.09,
+                      height: screenHeight * 0.09,
                     ),
                     Text(
                       'Watch movies in \n Virtual Reality',
                       textAlign: TextAlign.center,
-                      style: AppTextStyles.size34BoldWhiteColor, 
+                      style: AppTextStyles.size34BoldWhiteColor,
                     ),
                     SizedBox(
-                      height: screenHight * 0.05,
+                      height: screenHeight * 0.05,
                     ),
                     Text(
                       'Download and watch offline\n wherever you are ',
                       textAlign: TextAlign.center,
-                      style: AppTextStyles.size16RegularWhiteColor, 
+                      style: AppTextStyles.size16RegularWhiteColor,
                     ),
                     SizedBox(
-                      height: screenHight * 0.03,
+                      height: screenHeight * 0.03,
                     ),
                     GestureDetector(
                       onTap: () {
@@ -149,14 +118,14 @@ class FirstPage extends StatelessWidget {
                             child: Text(
                               'Sign Up',
                               textAlign: TextAlign.center,
-                              style: AppTextStyles.size14RegularWhiteColor, 
+                              style: AppTextStyles.size14RegularWhiteColor,
                             ),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: screenHight * 0.03,
+                      height: screenHeight * 0.03,
                     ),
                   ],
                 ),

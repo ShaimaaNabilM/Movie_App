@@ -1,16 +1,13 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:movie_app/core/common/custom_Background.dart';
+import 'package:movie_app/core/common/widgets/custom_outline.dart';
 import 'package:movie_app/core/common/widgets/custom_text_field.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
 import 'package:movie_app/core/themes/text_style.dart';
-import 'package:movie_app/core/common/widgets/custom_outline.dart';
-import 'package:movie_app/feature/home/presentation/pages/home_page.dart';
-import '../../../../layout/bottom_nav.dart';
-
-
+import 'package:movie_app/layout/bottom_nav.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,40 +22,7 @@ class SignUpPage extends StatelessWidget {
         height: screenHeight,
         child: Stack(
           children: [
-            // الدوائر الملونة
-            Positioned(
-              top: screenHeight * 0.1,
-              left: -88,
-              child: Container(
-                height: 166,
-                width: 166,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kPinkColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            Positioned(
-              top: screenHeight * 0.3,
-              right: -100,
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kGreenColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            
+            const Background(), 
             SafeArea(
               child: Center(
                 child: Column(
@@ -92,10 +56,7 @@ class SignUpPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-
-
-                            builder: (context) =>  BottomNav(),
-
+                            builder: (context) => BottomNav(),
                           ),
                         );
                       },
