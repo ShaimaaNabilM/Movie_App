@@ -5,6 +5,8 @@ import 'package:movie_app/core/themes/app_colors.dart';
 import 'package:movie_app/core/themes/text_style.dart';
 import 'package:movie_app/core/common/widgets/custom_outline.dart';
 import 'package:movie_app/feature/home/presentation/pages/home_page.dart';
+import '../../../../layout/bottom_nav.dart';
+
 
 
 class SignUpPage extends StatelessWidget {
@@ -90,7 +92,10 @@ class SignUpPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+
+
+                            builder: (context) =>  BottomNav(),
+
                           ),
                         );
                       },
