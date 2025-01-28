@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/feature/firstPage/presentation/pages/search_page.dart';
 
 import '../feature/category/presentation/pages/category_page.dart';
 import '../feature/home/presentation/pages/home_page.dart';
-import '../feature/home/presentation/pages/search_page.dart';
+
 
 
 

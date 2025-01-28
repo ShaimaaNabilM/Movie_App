@@ -89,7 +89,7 @@ class SignUpPage extends StatelessWidget {
                           child: Center(
                             child: Text(
                               'Sign Up',
-                              style: AppTextStyles.size14RegularWhiteColor,
+                              style: AppTextStyles.size13RegularWhiteColor,
                             ),
                           ),
                         ),
