@@ -25,29 +25,35 @@ class _HomeState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: AppColors.kBlackColor,
-        body: SizedBox(
-          child: Stack(
-            children: [
-              FilterWidget(),
-              Positioned(
-                top:50.h,
-                left:200.w,
-                child:  Text(
-                      'What would you\n   like to watch?',
-                      style: AppTextStyles.size28BoldWhiteColor,
-                        
-                      ),
-                    ),
-              Padding(
-                padding: const EdgeInsets.only(top:150,right:20,left:20),
-                child: buildSearchBar(),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppColors.kBlackColor,
+      body: SizedBox(
+        width: screenWidth,
+        height: screenHeight,
+        child: Stack(
+          children: [
+            FilterWidget(),
+            Positioned(
+              top: screenHeight * 0.05, // Adjust this value to move the text down or up
+              left: screenWidth * 0.2,  // Adjust left to center text
+              child: Text(
+                'What would you\n   like to watch?',
+                textAlign: TextAlign.center,
+                style: AppTextStyles.size28BoldWhiteColor,
               ),
-        ],
-        ),),
-        );
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 150, right: 20, left: 20),
+              child: buildSearchBar(),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget buildSearchBar() {
@@ -69,34 +75,34 @@ class _HomeState extends State<SearchPage> {
     return Consumer<SearchModel>(
       builder: (BuildContext context, SearchModel model, _) =>
           FloatingSearchBar(
-        title: Row(
-          children: [
-            const Icon(Icons.search, color: Colors.grey, size: 24),
-            const SizedBox(width: 3.11),
-            const Text(
-              'Search',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            title: Row(
+              children: [
+                const Icon(Icons.search, color: Colors.grey, size: 24),
+                const SizedBox(width: 3.11),
+                const Text(
+                  'Search',
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              ],
             ),
-          ],
-        ),
-        controller: controller,
-        iconColor: Colors.grey,
-        transitionDuration: const Duration(milliseconds: 800),
-        transitionCurve: Curves.easeInOutCubic,
-        physics: const BouncingScrollPhysics(),
-        axisAlignment: isPortrait ? 0.0 : -1.0,
-        openAxisAlignment: 0.0,
-        actions: actions,
-        progress: model.isLoading,
-        debounceDelay: const Duration(milliseconds: 500),
-        onQueryChanged: model.onQueryChanged,
-        border: const BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(30),
-        backdropColor: Colors.transparent,
-        builder: (BuildContext context, _) => model.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : buildExpandableBody(model),
-      ),
+            controller: controller,
+            iconColor: Colors.grey,
+            transitionDuration: const Duration(milliseconds: 800),
+            transitionCurve: Curves.easeInOutCubic,
+            physics: const BouncingScrollPhysics(),
+            axisAlignment: isPortrait ? 0.0 : -1.0,
+            openAxisAlignment: 0.0,
+            actions: actions,
+            progress: model.isLoading,
+            debounceDelay: const Duration(milliseconds: 500),
+            onQueryChanged: model.onQueryChanged,
+            border: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(30),
+            backdropColor: Colors.transparent,
+            builder: (BuildContext context, _) => model.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : buildExpandableBody(model),
+          ),
     );
   }
 
@@ -104,7 +110,6 @@ class _HomeState extends State<SearchPage> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       child: Material(
-        // color: Color.fromARGB(0, 255, 255, 255),
         borderRadius: BorderRadius.circular(15),
         clipBehavior: Clip.antiAlias,
         child: ImplicitlyAnimatedList<Movie>(
@@ -146,7 +151,7 @@ class _HomeState extends State<SearchPage> {
             FloatingSearchBar.of(context)?.close();
             Future<void>.delayed(
               const Duration(milliseconds: 500),
-              () => model.clear(),
+                  () => model.clear(),
             );
           },
           child: Padding(
