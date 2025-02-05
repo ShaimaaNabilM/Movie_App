@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/common/custom_Background.dart';
 import 'package:movie_app/core/themes/app_colors.dart';

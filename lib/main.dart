@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/feature/firstPage/presentation/pages/first_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/feature/firstPage/presentation/pages/details_movie.dart';
+import 'package:movie_app/feature/firstPage/presentation/pages/search_page.dart';
 import 'package:provider/provider.dart';
 
 import 'feature/search/search_provider.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             fontFamily: GoogleFonts.openSans().fontFamily,
             primarySwatch: Colors.blue,
           ),
-          home: const FirstPage(),
+          home:  SearchPage(),
         );
       },
     );

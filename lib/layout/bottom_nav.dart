@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/feature/firstPage/presentation/pages/search_page.dart';
+import 'package:movie_app/feature/home/data/models/movie_model.dart';
 
 import '../feature/category/presentation/pages/category_page.dart';
 import '../feature/home/presentation/pages/home_page.dart';
@@ -18,7 +19,7 @@ class _BottomNavState extends State<BottomNav> {
   final List<Widget> _pages = [
     HomePage(),
     CategoryPage(),
-    SearchPage(),
+    // SearchPage(movies: MovieApi),
   ];
 
   @override

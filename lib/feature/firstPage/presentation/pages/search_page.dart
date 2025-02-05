@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:implicitly_animated_reorderable_list_2/implicitly_animated_reorderable_list_2.dart';
-import 'package:implicitly_animated_reorderable_list_2/transitions.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
-import 'package:movie_app/core/themes/text_style.dart';
-import 'package:movie_app/feature/firstPage/presentation/widgets/filter.dart';
-import 'package:movie_app/feature/search/infosearch_movie.dart';
+import 'package:movie_app/feature/firstPage/presentation/pages/details_movie.dart';
+import 'package:movie_app/feature/home/data/models/movie_model.dart';
+import 'package:movie_app/feature/home/data/movie_api_service.dart';
 import 'package:movie_app/feature/search/search_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  final MovieService movieService = MovieService();
+
+  SearchPage({Key? key, }) : super(key: key);
 
   @override
-  State<SearchPage> createState() => _HomeState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _HomeState extends State<SearchPage> {
+class _SearchPageState extends State<SearchPage> {
   final FloatingSearchBarController controller = FloatingSearchBarController();
   final SpeechToText speechToText = SpeechToText();
   bool _isListening = false;
@@ -36,14 +35,13 @@ class _HomeState extends State<SearchPage> {
         height: screenHeight,
         child: Stack(
           children: [
-            FilterWidget(),
             Positioned(
               top: screenHeight * 0.05, // Adjust this value to move the text down or up
-              left: screenWidth * 0.2,  // Adjust left to center text
+              left: screenWidth * 0.2, // Adjust left to center text
               child: Text(
                 'What would you\n   like to watch?',
                 textAlign: TextAlign.center,
-                style: AppTextStyles.size28BoldWhiteColor,
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: AppColors.kWhiteColor),
               ),
             ),
             Padding(
@@ -57,52 +55,25 @@ class _HomeState extends State<SearchPage> {
   }
 
   Widget buildSearchBar() {
-    final List<FloatingSearchBarAction> actions = <FloatingSearchBarAction>[
-      FloatingSearchBarAction(
-        child: IconButton(
-          icon: const Icon(Icons.mic),
-          onPressed: _toggleListening,
-        ),
-      ),
-      FloatingSearchBarAction.searchToClear(
-        showIfClosed: false,
-      ),
-    ];
-
-    final bool isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
-
     return Consumer<SearchModel>(
-      builder: (BuildContext context, SearchModel model, _) =>
-          FloatingSearchBar(
-            title: Row(
-              children: [
-                const Icon(Icons.search, color: Colors.grey, size: 24),
-                const SizedBox(width: 3.11),
-                const Text(
-                  'Search',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-              ],
+      builder: (BuildContext context, SearchModel model, _) => FloatingSearchBar(
+        controller: controller,
+        progress: model.isLoading,
+        debounceDelay: const Duration(milliseconds: 500),
+        onQueryChanged: model.onQueryChanged,
+        actions: [
+          FloatingSearchBarAction(
+            child: IconButton(
+              icon: const Icon(Icons.mic),
+              onPressed: _toggleListening,
             ),
-            controller: controller,
-            iconColor: Colors.grey,
-            transitionDuration: const Duration(milliseconds: 800),
-            transitionCurve: Curves.easeInOutCubic,
-            physics: const BouncingScrollPhysics(),
-            axisAlignment: isPortrait ? 0.0 : -1.0,
-            openAxisAlignment: 0.0,
-            actions: actions,
-            progress: model.isLoading,
-            debounceDelay: const Duration(milliseconds: 500),
-            onQueryChanged: model.onQueryChanged,
-            border: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(30),
-            backdropColor: Colors.transparent,
-            builder: (BuildContext context, _) => model.isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : buildExpandableBody(model),
           ),
+          FloatingSearchBarAction.searchToClear(showIfClosed: false),
+        ],
+        builder: (BuildContext context, _) => model.isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : buildExpandableBody(model),
+      ),
     );
   }
 
@@ -112,71 +83,48 @@ class _HomeState extends State<SearchPage> {
       child: Material(
         borderRadius: BorderRadius.circular(15),
         clipBehavior: Clip.antiAlias,
-        child: ImplicitlyAnimatedList<Movie>(
+        child: ListView.builder(
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          items: model.suggestions,
-          insertDuration: const Duration(milliseconds: 700),
-          itemBuilder: (BuildContext context, Animation<double> animation,
-              Movie item, _) {
-            return SizeFadeTransition(
-              animation: animation,
-              child: buildItem(context, item),
-            );
+          itemCount: model.suggestions.length,
+          itemBuilder: (BuildContext context, int index) {
+            MovieApi movie = model.suggestions[index];
+            return buildItem(context, movie,  );
           },
-          updateItemBuilder:
-              (BuildContext context, Animation<double> animation, Movie item) {
-            return FadeTransition(
-              opacity: animation,
-              child: buildItem(context, item),
-            );
-          },
-          areItemsTheSame: (Movie a, Movie b) => a == b,
         ),
       ),
     );
   }
 
-  Widget buildItem(BuildContext context, Movie movie) {
-    final ThemeData theme = Theme.of(context);
-    final TextTheme textTheme = theme.textTheme;
+  Widget buildItem(BuildContext context, MovieApi movie,) {
+      print("movie.videoKey ${movie.videoKey}");
 
-    final SearchModel model = Provider.of<SearchModel>(context, listen: false);
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        InkWell(
-          onTap: () {
-            FloatingSearchBar.of(context)?.close();
-            Future<void>.delayed(
-              const Duration(milliseconds: 500),
-                  () => model.clear(),
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(9),
-            child: Row(
-              children: <Widget>[
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        movie.name,
-                        style: textTheme.titleMedium,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+          Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailsScreen(movie: movie, ),
           ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(9),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    movie.title,
+                    style: TextStyle(fontSize: 18, color:  AppColors.kBlackColor),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        if (model.suggestions.isNotEmpty && movie != model.suggestions.last)
-          const Divider(height: 0),
-      ],
+      ),
     );
   }
 
@@ -196,10 +144,5 @@ class _HomeState extends State<SearchPage> {
     }
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    speechToText.stop();
-    super.dispose();
-  }
+  
 }
