@@ -21,7 +21,7 @@ abstract class Routes {
   static const PAGE_1 = '/page-1';
   static const PAGE_2 = '/page-2';
   static const PAGE_5 = '/page-5';
-  /* static const PAGE_3 = '/page-3';
+/* static const PAGE_3 = '/page-3';
   static const PAGE_4 = '/page-4';
   static const PAGE_5 = '/page-5';
   static const PAGE_6 = '/page-6';
@@ -169,11 +169,11 @@ class _SearchPageState extends State<SearchPage> {
       rxBoolAuth: RxBoolAuth.input(
           rxBoolAuthm: Get.find<TestController>().rxAuth,
           authFalseWidget: () => const Center(
-                child: Text(
-                  'Please login.',
-                  style: TextStyle(fontSize: 22),
-                ),
-              )),
+            child: Text(
+              'Please login.',
+              style: TextStyle(fontSize: 22),
+            ),
+          )),
       filtersType: FiltersTypes.contains,
       obxListBuilder: (context, list, isModSearch) {
         // ☑️ This function is inside an Obx.
@@ -190,9 +190,9 @@ class _SearchPageState extends State<SearchPage> {
         if (list.isEmpty) {
           return const Center(
               child: Text(
-            'NOTHING FOUND',
-            style: TextStyle(fontSize: 14),
-          ));
+                'NOTHING FOUND',
+                style: TextStyle(fontSize: 14),
+              ));
         }
         return ListView.builder(
           itemCount: list.length,
@@ -278,9 +278,9 @@ class _SearchAppBarStreamState extends State<SearchAppBarStream> {
         if (list.isEmpty) {
           return const Center(
               child: Text(
-            'NOTHING FOUND',
-            style: TextStyle(fontSize: 14),
-          ));
+                'NOTHING FOUND',
+                style: TextStyle(fontSize: 14),
+              ));
         }
         return Column(
           children: [
@@ -435,10 +435,10 @@ class SimpleAppBarPage extends StatefulWidget {
 
   SimpleAppBarPage(
       {super.key,
-      required this.stringFilter,
-      required this.filtersType,
-      required this.listFull,
-      required this.compare});
+        required this.stringFilter,
+        required this.filtersType,
+        required this.listFull,
+        required this.compare});
 
   @override
   _SimpleAppPageState createState() => _SimpleAppPageState();
@@ -523,16 +523,16 @@ class _SimpleAppPageState extends State<SimpleAppBarPage> {
           if (list.isEmpty) {
             return const Center(
                 child: Text(
-              'NOTHING FOUND',
-              style: TextStyle(fontSize: 14),
-            ));
+                  'NOTHING FOUND',
+                  style: TextStyle(fontSize: 14),
+                ));
           }
           return ListView.builder(
             itemCount: list.length,
             itemBuilder: (_, index) {
               return Card(
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(4)),
                   // color: Theme.of(context).primaryColorDark,
@@ -622,11 +622,11 @@ class TestGetStreamPage extends StatelessWidget {
         rxBoolAuth: RxBoolAuth.input(
             rxBoolAuthm: Get.find<Test2Controller>().rxAuth,
             authFalseWidget: () => const Center(
-                  child: Text(
-                    'Please login.',
-                    style: TextStyle(fontSize: 22),
-                  ),
-                )),
+              child: Text(
+                'Please login.',
+                style: TextStyle(fontSize: 22),
+              ),
+            )),
         obxWidgetBuilder: (context, objesctStream) {
           ///------------------------------------------
           /// Build your body from the stream data.
@@ -635,9 +635,9 @@ class TestGetStreamPage extends StatelessWidget {
           if (list.isEmpty) {
             return const Center(
                 child: Text(
-              'NOTHING FOUND',
-              style: TextStyle(fontSize: 14),
-            ));
+                  'NOTHING FOUND',
+                  style: TextStyle(fontSize: 14),
+                ));
           }
           return Column(
             children: [
