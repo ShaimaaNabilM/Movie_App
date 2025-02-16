@@ -1,11 +1,15 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/core/common/custom_Background.dart';
 import 'package:movie_app/core/themes/app_colors.dart';
 import 'package:movie_app/core/themes/text_style.dart';
 import 'package:movie_app/feature/home/presentation/widgets/movie.dart';
 
+import '../../models/movie_model.dart';
+import '../bloc/movies_cubit.dart';
+
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,39 +24,7 @@ class HomePage extends StatelessWidget {
         height: screenHeight,
         child: Stack(
           children: [
-            Positioned(
-              top: screenHeight * 0.1,
-              left: -88,
-              child: Container(
-                height: 166,
-                width: 166,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kGreenColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            Positioned(
-              top: screenHeight * 0.3,
-              right: -100,
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.kPinkColor,
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 200, sigmaY: 200),
-                  child: const SizedBox(),
-                ),
-              ),
-            ),
-            
+            const Background(),
             SingleChildScrollView(
               child: Center(
                 child: SafeArea(
@@ -67,26 +39,28 @@ class HomePage extends StatelessWidget {
                         style: AppTextStyles.size28BoldWhiteColor,
                       ),
                       SizedBox(height: screenHeight * 0.04),
-                      MovieS(
-                        title: "New movies",
-                        movieImages: [
-                          "assets/images/img-aquaman.jpg",
-                          "assets/images/img-batman.jpg",
-                          "assets/images/img-eternals.jpg",
-                          "assets/images/img-sonic.jpg",
-                          "assets/images/img-batman.jpg",
-                        ],
-                      ),
-                      SizedBox(height: screenHeight * 0.03),
-                      MovieS(
-                        title: "Upcoming movies",
-                        movieImages: [
-                          "assets/images/img-batman.jpg",
-                          "assets/images/img-aquaman.jpg",
-                          "assets/images/img-eternals.jpg",
-                          "assets/images/img-batman.jpg",
-                          "assets/images/img-sonic.jpg",
-                        ],
+
+                      // 🔹 عرض الأفلام باستخدام BlocBuilder
+                      BlocBuilder<MoviesCubit, Map<String, List<MovieModel>>>(
+                        builder: (context, moviesData) {
+                          if (moviesData.isEmpty) {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+
+                          return Column(
+                            children: [
+                              MovieS(
+                                title: "Popular Movies",
+                                movies: moviesData["popular"] ?? [],
+                              ),
+                              SizedBox(height: screenHeight * 0.03),
+                              MovieS(
+                                title: "Upcoming Movies",
+                                movies: moviesData["upcoming"] ?? [],
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),
